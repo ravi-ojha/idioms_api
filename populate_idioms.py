@@ -3,11 +3,11 @@ import json
 from idioms.models import Idiom
 
 # Open the data files
-with open('1_to_30.json') as data_file:
+with open('31_to_50.json') as data_file:
     data = json.load(data_file)
 
 # Populate db with the entries in data file
-for k, v in data.iteritems():    
+for k, v in data.iteritems():
     i = Idiom()
     i.title = v['title']
     i.meaning = v['meaning']
