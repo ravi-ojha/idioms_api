@@ -42,11 +42,23 @@ class Idiom(models.Model):
         # Get a random number within the range of total idioms
         idx = random.randrange(count)
 
-        # Get all the idiom objects as queryset
-        idioms = Idiom.objects.all()
+        # Get a list of used idiom ids so far
+        used_idiom_ids = list(IdiomOfTheDay.objects.filter().values_list('idiom', flat=True))
 
-        # Return the one with index value corresponding to idx
-        return idioms[idx]
+        # List of idiom ids that are there in db
+        existing_idiom_ids = list(Idiom.objects.all().values_list('id', flat=True))
+
+        # List of unused idiom ids
+        unused_idiom_ids = list(set(existing_idiom_ids) - set(used_idiom_ids))
+
+        # Choose a random id from the unused list
+        random_id = random.choice(unused_idiom_ids)
+
+        # Get the idiom of the random_id
+        idiom = Idiom.objects.get(id=random_id)
+
+        # Return the idiom
+        return idiom
 
 
 class IdiomOfTheDay(models.Model):
