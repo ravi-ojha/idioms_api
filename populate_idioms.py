@@ -3,7 +3,7 @@ import json
 from idioms.models import Idiom
 
 # Open the data files
-with open('31_to_50.json') as data_file:
+with open('71_to_80.json') as data_file:
     data = json.load(data_file)
 
 # Populate db with the entries in data file
