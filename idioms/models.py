@@ -55,8 +55,13 @@ class Idiom(models.Model):
         random_id = random.choice(unused_idiom_ids)
 
         # Get the idiom of the random_id
-        idiom = Idiom.objects.get(id=random_id)
-
+        idiom = Idiom.objects.filter(id=random_id)
+        if not idiom:
+            random_idx = random.randint(0, Idiom.objects.count() - 1)
+            idiom = Idiom.objects.all()[random_idx]
+        else:
+            idiom = idiom[0]
+            
         # Return the idiom
         return idiom
 
