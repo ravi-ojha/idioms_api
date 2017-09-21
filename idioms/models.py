@@ -51,16 +51,16 @@ class Idiom(models.Model):
         # List of unused idiom ids
         unused_idiom_ids = list(set(existing_idiom_ids) - set(used_idiom_ids))
 
-        # Choose a random id from the unused list
-        random_id = random.choice(unused_idiom_ids)
+        if unused_idiom_ids:
+            # Choose a random id from the unused list
+            random_id = random.choice(unused_idiom_ids)
 
-        # Get the idiom of the random_id
-        idiom = Idiom.objects.filter(id=random_id)
-        if not idiom:
+            # Get the idiom of the random_id
+            idiom = Idiom.objects.get(id=random_id)
+        else:
             random_idx = random.randint(0, Idiom.objects.count() - 1)
             idiom = Idiom.objects.all()[random_idx]
-        else:
-            idiom = idiom[0]
+     
             
         # Return the idiom
         return idiom
